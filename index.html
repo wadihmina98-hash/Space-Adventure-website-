@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Space Adventure</title>
+    <style>
+        :root {
+            --bg-dark: #060613;
+            --bg-panel: #0d0d26;
+            --accent-cyan: #00f0ff;
+            --accent-pink: #ff007f;
+            --text-main: #f0f0f8;
+            --text-muted: #8a8aab;
+            --neon-glow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .badge {
+            background: linear-gradient(90deg, var(--accent-pink), #9d00ff);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .hype-bar {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stat-icon {
+            font-size: 18px;
+        }
+
+        .like-btn {
+            background: linear-gradient(135deg, #00f0ff, #0077ff);
+            border: none;
+            color: #000;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--neon-glow);
+        }
+
+        .like-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+        }
+
+        .like-btn.liked {
+            background: var(--accent-pink);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            max-width: 100%;
+            background: #000;
+            border: 2px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,240,255,0.1);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .controls-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            background: rgba(13, 13, 38, 0.6);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.03);
+            margin-bottom: 20px;
+        }
+
+        .key {
+            background: #252545;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            border-bottom: 2px solid #151530;
+        }
+
+        .mobile-interface {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        .controller-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .pad-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pad-right {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+
+        .v-btn {
+            background: linear-gradient(135deg, rgba(37,37,69,0.8), rgba(21,21,48,0.8));
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            touch-action: manipulation;
+            transition: transform 0.05s;
+        }
+
+        .v-btn:active, .v-btn.active {
+            transform: scale(0.92);
+            background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-cyan);
+            border-color: #fff;
+        }
+
+        .fire-btn {
+            width: 80px;
+            height: 80px;
+            border-color: rgba(255, 0, 127, 0.4);
+        }
+        
+        .fire-btn:active, .fire-btn.active {
+            background: linear-gradient(135deg, var(--accent-pink), #ff0055);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-pink);
+        }
+
+        .dir-btn {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+        }
+        #node-Y { top: 0; left: 56px; }
+        #node-X { top: 56px; left: 0; }
+        #node-B { top: 56px; right: 0; }
+        #node-A { bottom: 0; left: 56px; }
+
+        @media (max-width: 1024px) or (pointer: coarse) {
+            .mobile-interface {
+                display: block;
+            }
+            .controls-legend {
+                display: none;
+            }
+            #game-container {
+                height: 320px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="badge">V1.0 Live</span>
+        <h1>Space Adventure</h1>
+        <p class="subtitle">Destroy 20 enemy ships to secure the galaxy. Playable across Mobile & PC.</p>
+    </header>
+
+    <div class="hype-bar">
+        <div class="stat-item">
+            <span class="stat-icon">🎮</span>
+            <span>Active Players: <span id="player-count">4</span></span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-icon">🔥</span>
+            <span>Global Likes: <span id="like-count">94</span>/100 Today</span>
+        </div>
+        <button class="like-btn" id="like-trigger" onclick="handleLikeClick()">👍 Like Game</button>
+    </div>
+
+    <div id="game-container">
+        <!-- YOUR GD.GAMES EMBED LINK HAS BEEN ADDED BELOW -->
+        <iframe id="game-frame" src="https://gd.games/mina_wadih/space-adventure"></iframe>
+    </div>
+
+    <div class="controls-legend">
+        <div>🚀 Move Spaceship: <span class="key">▲</span> <span class="key">▼</span> <span class="key">◄</span> <span class="key">►</span> Arrow Keys</div>
+        <div>💥 Weapon Systems: <span class="key">Spacebar</span> Key</div>
+    </div>
+
+    <div class="mobile-interface">
+        <div class="controller-row">
+            <div class="pad-left">
+                <div id="action-shoot" class="v-btn fire-btn">X</div>
+            </div>
+            
+            <div class="pad-right">
+                <div id="node-Y" class="v-btn dir-btn">Y</div>
+                <div id="node-X" class="v-btn dir-btn">X</div>
+                <div id="node-B" class="v-btn dir-btn">B</div>
+                <div id="node-A" class="v-btn dir-btn">A</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputState = {
+            ArrowUp: false,
+            ArrowDown: false,
+            ArrowLeft: false,
+            ArrowRight: false,
+            Space: false
+        };
+
+        const iframeTarget = document.getElementById('game-frame');
+
+        function pushInputsToFrame() {
+            if (iframeTarget && iframeTarget.contentWindow) {
+                iframeTarget.contentWindow.postMessage({
+                    type: 'GAME_INPUT_UPDATE',
+                    inputs: inputState
+                }, '*');
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const code = e.code;
+            if(['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) {
+                e.preventDefault();
+                if (!inputState[code]) {
+                    inputState[code] = true;
+                    pushInputsToFrame();
+                }
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            const code = e.code;
+            if(['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) {
