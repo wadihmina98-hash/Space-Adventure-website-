@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Adventure - Official Website</title>
+    <style>
+        /* Base Page Setup */
+        body {
+            background-color: #03030c;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-y: auto;
+            position: relative;
+        }
 
+        /* Animated Starfield Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 200%; height: 200%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            animation: spaceScroll 180s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes spaceScroll {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
+        }
+
+        /* Main Scrolling Content Wrapper */
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* Main Welcome Section */
+        .hero-section {
+            background: rgba(15, 15, 35, 0.7);
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-top: 0;
+            color: #00d2ff;
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+            letter-spacing: 3px;
+        }
+
+        .hero-p {
+            color: #e0e4ff;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 35px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d2ff 0%, #0066ff 100%);
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-decoration: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn:active { transform: scale(0.96); }
+
+        /* Sub-Sections Layout Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid { grid-template-columns: 1fr; }
+        }
+
+        .info-card {
+            background: rgba(10, 10, 25, 0.8);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+        }
+
+        h2 {
+            color: #00d2ff;
+            font-size: 1.6rem;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+            color: #cbd2f0;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Mobile Controller Button Styling */
+        .mobile-btn {
+            background: #e60012;
+            border: 1px solid #ff4d5a;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-family: monospace;
+            font-weight: bold;
+            color: #fff;
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 16px;
+            margin: 0 2px;
+        }
+
+        .shoot-btn {
+            background: #00d2ff;
+            border: 1px solid #ffffff;
+        }
+
+        /* PC Keyboard Key Styling */
+        .pc-key {
+            background: #202540;
+            border: 1px solid #405080;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #ffffff;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 0 #101225;
+        }
+
+        /* Dev Log / Update Timeline Section */
+        .timeline {
+            background: rgba(10, 10, 25, 0.8);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .timeline-item {
+            margin-bottom: 20px;
+            border-left: 3px solid #0066ff;
+            padding-left: 15px;
+        }
+
+        .timeline-date {
+            color: #00d2ff;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            margin: 3px 0;
+        }
+
+        .timeline-desc {
+            color: #a0a8cc;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            color: #60688f;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- HEADER HERO SECTION -->
+        <header class="hero-section">
+            <h1>SPACE ADVENTURE</h1>
+            <p class="hero-p">Blast off into the ultimate cosmic journey! Pilot your starship, dodge obstacles, and survive the infinite reaches of deep galaxy territory.</p>
+            <a href="https://gd.games" class="btn">LAUNCH GAME</a>
+        </header>
+
+        <!-- CONTROLS & FEATURES SECTION -->
+        <div class="content-grid">
+            
+            <!-- Game Controls Card -->
+            <section class="info-card">
+                <h2>How to Play</h2>
+                <p style="color: #00d2ff; font-weight: bold; margin-bottom: 5px;">📱 Mobile Controls (Touch):</p>
+                <ul style="margin-bottom: 20px;">
+                    <li><strong>Left Side Screen:</strong> Tap the blue button <span class="mobile-btn shoot-btn">X</span> to shoot out lasers.</li>
+                    <li><strong>Right Side Screen:</strong> Use directional buttons to fly:</li>
+                    <li>Fly Up: <span class="mobile-btn">Y</span> | Fly Down: <span class="mobile-btn">A</span></li>
+                    <li>Fly Left: <span class="mobile-btn">X</span> | Fly Right: <span class="mobile-btn">B</span></li>
+                </ul>
+
+                <p style="color: #00d2ff; font-weight: bold; margin-bottom: 5px;">💻 PC Controls (Keyboard):</p>
+                <ul>
+                    <li><strong>Attack:</strong> Press the <span class="pc-key">Spacebar</span> key to fire your lasers.</li>
+                    <li><strong>Movement:</strong> Use the standard <span class="pc-key">Arrow Keys</span> to steer your starship.</li>
+                </ul>
+            </section>
+
+            <!-- Game Features Card -->
+            <section class="info-card">
+                <h2>Game Features</h2>
+                <ul>
+                    <li><strong>Infinite Scaling:</strong> The game increases in velocity and intensity the longer you survive.</li>
+                    <li><strong>Dynamic Obstacles:</strong> Navigate through randomized fast-moving orbital asteroid configurations.</li>
+                    <li><strong>Mobile Optimization:</strong> Fully playable using direct touch layout inputs on tablet platforms.</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <!-- RECENT DEVELOPMENT LOG SECTION -->
+        <section class="timeline">
+            <h2>Development Updates</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">August 2026</div>
+                <div class="timeline-title">Official Web Deployment</div>
+                <p class="timeline-desc">Published the official HTML5 launch hub interface on GitHub Pages metadata nodes to allow global cross-platform link indexing.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">July 2026</div>
+                <div class="timeline-title">GDevelop Engine Compile</div>
+                <p class="timeline-desc">Completed full collision logic programming framework scripts and initialized global physics tracking nodes within the asset architecture.</p>
+            </div>
+        </section>
+
+        <!-- FOOTER SIGNATURE -->
+        <footer>
+            <p>© 2026 Space Adventure. Developed independently within the GDevelop Engine pipeline.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
